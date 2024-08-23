@@ -1,0 +1,24 @@
+name: Deploy Staging 
+
+on:
+  push:
+    branches:
+      - staging
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.SSH_HOST_STAGING }}
+          username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            cd /var/www/html
+            git reset --hard
+            git pull origin staging
+            composer i

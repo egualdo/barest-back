@@ -1,0 +1,15 @@
+<IfModule mod_php8.c>
+  # Establecer el límite de tamaño de carga de archivos en 10MB
+  php_value upload_max_filesize 10M
+  php_value post_max_size 10M
+</IfModule>
+
+<IfModule mod_deflate.c>
+  # Activar la compresión de archivos para mejorar el rendimiento
+  AddOutputFilterByType DEFLATE image/jpeg
+  AddOutputFilterByType DEFLATE image/png
+  AddOutputFilterByType DEFLATE application/pdf
+</IfModule>
+
+# Evitar que se liste el contenido del directorio
+Options -Indexes
